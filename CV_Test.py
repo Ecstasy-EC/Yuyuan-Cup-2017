@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import cv2
 import time
 from numpy import *
@@ -127,3 +128,4 @@ GrayScan(res)
 #Dist=4*F/Pix
 #print("Recognition: %f cm" % (Dist))
 cv2.imshow('Res',res)
+
