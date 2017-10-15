@@ -4,7 +4,7 @@ from numpy import *
 from PIL import ImageGrab
 from matplotlib import pyplot as plt
 
-Kernel=cv2.getStructuringElement(cv2.MORPH_RECT,(6,6))
+Kernel=cv2.getStructuringElement(cv2.MORPH_RECT,(7,7))
 #Color Histogram
 F=993.95
 
@@ -34,21 +34,40 @@ def GreyFilter(RGB):
 def Draw(Points,img):
     cv2.rectangle(img,tuple(Points[0]),tuple(Points[2]),(0,0,255))
 
-def GreyScan(img):
-    RecM=400
-    RecN=400
-    m,n=shape(img)
-    Reci=0
-    Recj=0
-    Sum=0
-    for i in range(m-RecM):
-        for j in range(n-RecN):
-            T_Sum=sum(img[i:i+RecM,j:j+RecN])
-            if T_Sum>Sum:
-                Reci=i
-                Recj=j
-                Sum=T_Sum
-    return Reci,Recj            
+def GrayScan(img):
+    gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    B=gray>0
+    n,m=shape(B)
+    SumRec=0
+    for i in range(1,n):
+        tmp=sum(B[n-i,:])
+        if tmp>100:
+            if tmp>=SumRec:
+                SumRec=tmp
+            else:
+                break
+    l=n-i+1
+    line=B[l,:]
+    Lx=0
+    SumRec=0
+    tmp=0
+    for i in range(len(line)):
+        if line[i]>0:
+            tmp+=1
+        else:
+            if tmp>=SumRec:
+                SumRec=tmp
+                Lx=i-SumRec
+            tmp=0
+    Rx=Lx+SumRec
+    length=SumRec
+    for i in range(1,l):
+        tmp=sum(B[l-i,Lx:Rx])
+        if tmp/float(length)<0.05:
+            break
+    d=l-i
+    Draw([[Lx,d],[Lx,l],[Rx,l],[Rx,d]],img)
+
     
 def Key_Points(img):
     img_cp=img.copy()
@@ -102,6 +121,7 @@ cv2.imshow('origin',origin)
 F1=GreyFilter(origin)
 #Points=Key_Points(F1)
 res=cv2.bitwise_and(origin,origin,mask=F1)
+GrayScan(res)
 #Draw(Points,res)
 #Pix=Points[:,1].max()-Points[:,1].min()
 #Dist=4*F/Pix
