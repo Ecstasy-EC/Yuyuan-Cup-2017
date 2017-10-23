@@ -16,12 +16,13 @@ def Send(s,ser):
     return
 
 def Catch(ser):
-    s=ser.read().decode('utf-8')
+    s=ser.read_all().decode('utf-8')
     message=s.split()
     string=''
     for letter in message:
-        string+=chr(int(letter))
-    return letter
+        #string+=chr(int(letter))
+        string+=letter
+    return string
 
 
 ser=Connect(12,9600)
