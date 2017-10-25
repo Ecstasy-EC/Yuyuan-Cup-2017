@@ -24,6 +24,8 @@ while (1):
 		DistR,LocR=BlackScan(origin)
 		Dist_S=str(round(DistR,3))
 		Loc_S=str(round(abs(LocR),3))
+	if (DistR==0) and (LocR==0):
+		continue
 	if LocR<10:
 		Loc_S='0'+Loc_S
 	if LocR>=0:
