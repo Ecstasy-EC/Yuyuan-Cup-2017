@@ -24,5 +24,5 @@ def Catch(ser):
         string+=letter
     return string
 
-
-ser=Connect(12,9600)
+if __name__=='__main__':
+    ser=Connect(12,9600)

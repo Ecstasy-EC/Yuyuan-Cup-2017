@@ -84,6 +84,7 @@ def RedScan(origin):
     Mid=n/float(2)       
     Loc=CalcLoc(Rect_Mid-Mid,H-D)
     print("Red Distance: ",Dist,'Loc: ',Loc)
+    return Dist,Loc
     #print(CalcF(H-D,15))
 
 def BlackScan(origin):
@@ -118,6 +119,7 @@ def BlackScan(origin):
     Mid=n/float(2)       
     Loc=CalcLoc(Rect_Mid-Mid,i)
     print("Black Distance: ",Dist,'Loc: ',Loc)
+    return Dist,Loc
     
 def RectScan(img,Gray,origin):
     gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
