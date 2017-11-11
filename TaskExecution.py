@@ -63,4 +63,3 @@ while (1):
     C=''
     if cv2.waitKey(1) & 0xFF==ord(' '):
         break 
-

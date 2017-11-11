@@ -1,3 +1,4 @@
+
 def BlackScan(origin):
     F1=BlackFilter(origin)
     res=cv2.bitwise_and(origin,origin,mask=F1)

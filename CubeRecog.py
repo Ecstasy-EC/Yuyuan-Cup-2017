@@ -1,3 +1,4 @@
+
 import cv2
 import time
 from numpy import *
@@ -137,4 +138,3 @@ if __name__=='__main__':
         #time.sleep(0.5)
     cv2.destroyAllWindows()    
     
-
